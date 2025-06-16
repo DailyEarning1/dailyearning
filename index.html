@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Earning</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    h1 {
+      margin: 20px 0;
+      font-size: 2.5rem;
+    }
+    .packs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 20px;
+    }
+    .pack {
+      background: #ffffff11;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px #00000055;
+    }
+    .pack h2 {
+      margin: 0;
+    }
+    .pack p {
+      margin: 5px 0 15px;
+    }
+    .buy-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .qr-popup {
+      display: none;
+      position: fixed;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+    .qr-popup img {
+      width: 200px;
+    }
+    .done-section {
+      margin-top: 15px;
+    }
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 900;
+    }
+  </style>
+</head>
+<body>
+  <h1>Daily Earning</h1>
+  <div class="packs">
+    <div class="pack">
+      <h2>₹150 Pack</h2>
+      <p>Daily ₹80 without work</p>
+      <button class="buy-btn" onclick="showQR(150)">Buy Now</button>
+    </div>
+    <div class="pack">
+      <h2>₹299 Pack</h2>
+      <p>Daily ₹180 without work</p>
+      <button class="buy-btn" onclick="showQR(299)">Buy Now</button>
+    </div>
+    <div class="pack">
+      <h2>₹999 Pack</h2>
+      <p>Daily ₹340 without work</p>
+      <button class="buy-btn" onclick="showQR(999)">Buy Now</button>
+    </div>
+    <!-- Add more packs similarly -->
+  </div>
+
+  <div id="overlay" onclick="hideQR()"></div>
+  <div class="qr-popup" id="qrPopup">
+    <h3>Scan & Pay</h3>
+    <img src="https://www.mediafire.com/convrest/5lvm7mstbmv9tvt/Picsart_25-06-15_00-05-07-938.png" alt="QR Code" />
+    <div class="done-section">
+      <p>After payment, enter Transaction ID:</p>
+      <input type="text" id="txnId" placeholder="Enter Transaction ID" />
+      <button onclick="sendTxn()">Done</button>
+    </div>
+  </div>
+
+  <script>
+    function showQR(amount) {
+      document.getElementById('qrPopup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function hideQR() {
+      document.getElementById('qrPopup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    function sendTxn() {
+      const txnId = document.getElementById('txnId').value;
+      fetch(`https://formsubmit.co/ajax/genuineearniingg@gmail.com`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `New Transaction ID: ${txnId}`
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert("Payment received! You'll get course link shortly.");
+        setTimeout(() => {
+          window.open("https://youtube.com/playlist?list=PLE0okpeHKm_me8UVEL0elad-7rfc_gNVp", "_blank");
+        }, 5000);
+      });
+    }
+  </script>
+</body>
+</html>
